@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import ShowResult from "./components/showResult";
 
 function App() {
+  const [number, setNumber] = useState("");
+  const [result, setResult] = useState({});
+
+  const sendNumberToCalculate = async () => {
+    const resultApi = await fetch(
+      `http://localhost:3001/api/calculo/${number}`
+    );
+    const resultApiJSON = await resultApi.json();
+    setResult(resultApiJSON);
+  };
+
+  const cleanValues = () => {
+    setNumber("");
+    setResult({});
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {number}
+      <input
+        type="text"
+        value={number}
+        onChange={(event) => setNumber(event.target.value)}
+      />
+      <button type="button" onClick={sendNumberToCalculate}>
+        Calcular
+      </button>
+      <button type="button" onClick={cleanValues}>
+        Limpar
+      </button>
+      <ShowResult result={result} />
     </div>
   );
 }
