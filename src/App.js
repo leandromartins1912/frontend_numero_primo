@@ -7,8 +7,10 @@ function App() {
   const [result, setResult] = useState({});
 
   const sendNumberToCalculate = async () => {
+    var baseUrl = 'https://apinumeroprimo.herokuapp.com/api/';
+
     const resultApi = await fetch(
-      `http://localhost:3001/api/calculo/${number}`
+      `${baseUrl}calculo/${number}`
     );
     const resultApiJSON = await resultApi.json();
     setResult(resultApiJSON);
