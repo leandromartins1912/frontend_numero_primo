@@ -1,5 +1,8 @@
 import "./App.css";
 import React, { useState } from "react";
+
+import Header from "./components/header/Header";
+
 import ShowResult from "./components/showResult";
 
 function App() {
@@ -7,11 +10,10 @@ function App() {
   const [result, setResult] = useState({});
 
   const sendNumberToCalculate = async () => {
-    var baseUrl = 'https://apinumeroprimo.herokuapp.com/api/';
+    var baseUrl = "https://apinumeroprimo.herokuapp.com/api/";
+    //var baseUrl = "http://localhost:8080/api/"
 
-    const resultApi = await fetch(
-      `${baseUrl}calculo/${number}`
-    );
+    const resultApi = await fetch(`${baseUrl}calculo/${number}`);
     const resultApiJSON = await resultApi.json();
     setResult(resultApiJSON);
   };
@@ -22,19 +24,28 @@ function App() {
   };
 
   return (
-    <div>
-      {number}
+    <div className="container">
+      
+      <Header />
       <input
         type="text"
         value={number}
         onChange={(event) => setNumber(event.target.value)}
+        className="add-number-input"
       />
-      <button type="button" onClick={sendNumberToCalculate}>
-        Calcular
-      </button>
-      <button type="button" onClick={cleanValues}>
-        Limpar
-      </button>
+      <div>
+        <button
+          type="button"
+          onClick={sendNumberToCalculate}
+          className="button-calculate"
+        >
+          Calcular
+        </button>
+        <button type="button" onClick={cleanValues} className="button-clear">
+          Limpar
+        </button>
+      </div>
+
       <ShowResult result={result} />
     </div>
   );
