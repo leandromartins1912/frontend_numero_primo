@@ -5,6 +5,7 @@ Este Projeto foi desenvolvido com [Create React App](https://github.com/facebook
 
 No diretório do projeto, você pode executar:
 
+### `npm install`
 ### `yarn start`
 
 Executa o aplicativo no modo de desenvolvimento.
